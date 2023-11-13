@@ -1,5 +1,6 @@
+import 'package:chatapp/Features/Splash/presentation/view/splash_view.dart';
+
 import 'Core/utils/color_manager.dart';
-import 'Features/LoginRegister/View/login_register_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginView(),
+      home: const SplashView(),
     );
   }
 }
