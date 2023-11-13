@@ -1,4 +1,4 @@
-import 'package:chatapp/Features/LoginRegister/View_Model/LoginRegister_Cubit/state.dart';
+import 'state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginRegisterCubit extends Cubit<LoginRegisterState> {

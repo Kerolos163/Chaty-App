@@ -1,6 +1,7 @@
-import '../../../../Core/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../Core/utils/color_manager.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(

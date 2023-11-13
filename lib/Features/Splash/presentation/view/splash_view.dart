@@ -1,5 +1,5 @@
-import 'package:chatapp/Core/utils/color_manager.dart';
-import 'package:chatapp/Features/Splash/presentation/view/Widget/splash_body.dart';
+import '../../../../Core/utils/color_manager.dart';
+import 'Widget/splash_body.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatelessWidget {

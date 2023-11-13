@@ -1,7 +1,7 @@
-import 'package:chatapp/Features/Splash/presentation/view/splash_view.dart';
+import 'package:flutter/material.dart';
 
 import 'Core/utils/color_manager.dart';
-import 'package:flutter/material.dart';
+import 'Features/Splash/presentation/view/splash_view.dart';
 
 void main() {
   runApp(const MyApp());

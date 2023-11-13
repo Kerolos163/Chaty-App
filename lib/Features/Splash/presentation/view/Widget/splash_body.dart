@@ -1,6 +1,7 @@
-import 'package:chatapp/Core/constant.dart';
-import 'package:chatapp/Core/utils/color_manager.dart';
-import 'package:chatapp/Features/LoginRegister/View/login_register_view.dart';
+import '../../../../../Core/constant.dart';
+import '../../../../../Core/transition/page_slide_transition.dart';
+import '../../../../../Core/utils/color_manager.dart';
+import '../../../../LoginRegister/View/login_register_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,36 +29,35 @@ class _SplashBodyState extends State<SplashBody>
   }
 
   void navToHome() {
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const LoginView(),
-      ));
+    Future.delayed(const Duration(seconds: 4)).then((value) {
+      Navigator.of(context).pushReplacement(PageSlide(const LoginView()));
     });
   }
 
   void initSlidingAnimation() {
     animationcontroller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 3));
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
     slidingAnimation =
         Tween<Offset>(begin: const Offset(0, 5), end: Offset.zero)
-            .animate(animationcontroller);
+            .animate(CurvedAnimation(parent: animationcontroller, curve: Curves.bounceInOut));
     animationcontroller.forward();
   }
 
   AnimatedBuilder slidingText() {
     return AnimatedBuilder(
-        animation: slidingAnimation,
-        builder: (context, _) {
-          return SlideTransition(
-            position: slidingAnimation,
-            child: Text(
-              "Chaty",
-              style: GoogleFonts.birthstone(
-                fontSize: MyDevice.getWidth(context) / 4,
-                color: ColorManager.primaryFont,
-              ),
+      animation: slidingAnimation,
+      builder: (context, _) {
+        return SlideTransition(
+          position: slidingAnimation,
+          child: Text(
+            "Chaty",
+            style: GoogleFonts.birthstone(
+              fontSize: MyDevice.getWidth(context) / 3.5,
+              color: ColorManager.primaryFont,
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
