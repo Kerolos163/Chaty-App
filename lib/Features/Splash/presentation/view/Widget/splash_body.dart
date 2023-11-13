@@ -36,7 +36,7 @@ class _SplashBodyState extends State<SplashBody>
 
   void initSlidingAnimation() {
     animationcontroller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+        AnimationController(vsync: this, duration: const Duration(seconds: 3));
     slidingAnimation =
         Tween<Offset>(begin: const Offset(0, 5), end: Offset.zero)
             .animate(CurvedAnimation(parent: animationcontroller, curve: Curves.bounceInOut));
