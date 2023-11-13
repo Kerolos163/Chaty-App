@@ -1,5 +1,5 @@
 
-import 'package:chatapp/Features/LoginRegister_View/View_Model/LoginRegister_Cubit/cubit.dart';
+import 'package:chatapp/Features/LoginRegister/View_Model/LoginRegister_Cubit/cubit.dart';
 
 import '../../../../Core/utils/color_manager.dart';
 import 'package:flutter/material.dart';
