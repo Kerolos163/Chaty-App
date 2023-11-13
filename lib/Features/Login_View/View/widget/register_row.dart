@@ -9,7 +9,10 @@ class RegistarRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't Have Account ? "),
+        Text(
+          "Don't Have Account ? ",
+          style: TextStyle(color: ColorManager.primaryFont),
+        ),
         Text(
           "Registar",
           style: TextStyle(color: ColorManager.second),
