@@ -36,7 +36,7 @@ class LoginBody extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Log In",
+                    "LOGIN",
                     style: TextStyle(
                       fontSize: 35,
                       color: ColorManager.primaryFont,
