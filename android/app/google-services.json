@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "838252525720",
+    "project_id": "chaty-3e569",
+    "storage_bucket": "chaty-3e569.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838252525720:android:4331648af18055368538ed",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-PrcdcgXqRnLk0wCUaEbwmxnR4b-fv6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
