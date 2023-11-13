@@ -20,11 +20,11 @@ class LoginRegisterBody extends StatelessWidget {
     return BlocBuilder<LoginRegisterCubit, LoginRegisterState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.symmetric(horizontal:12.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: MyDevice.getHeigh(context) / 16),
+                SizedBox(height: MyDevice.getHeigh(context) / 14),
                 Lottie.asset(AssetManager.loginAnimation),
                 Text(
                   "Chaty",
@@ -36,16 +36,18 @@ class LoginRegisterBody extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "LOGIN",
+                    LoginRegisterCubit.get(context).isLogin
+                        ? "LOGIN"
+                        : "REGISTER",
                     style: TextStyle(
-                      fontSize: 35,
+                      fontSize: 30,
                       color: ColorManager.primaryFont,
                     ),
                   ),
                 ),
-                SizedBox(height: MyDevice.getHeigh(context) / 50),
+                SizedBox(height: MyDevice.getHeigh(context) / 60),
                 const CustomTextFormField(hint: "Email"),
-                SizedBox(height: MyDevice.getHeigh(context) / 50),
+                SizedBox(height: MyDevice.getHeigh(context) / 60),
                 CustomTextFormField(
                   hint: "Password",
                   obscureText: !(LoginRegisterCubit.get(context).isVisiable),
@@ -58,8 +60,28 @@ class LoginRegisterBody extends StatelessWidget {
                         : Icons.visibility),
                   ),
                 ),
-                const SizedBox(height: 30),
-                const CustomButton(txt: "LogIn"),
+                SizedBox(height: MyDevice.getHeigh(context) / 60),
+                LoginRegisterCubit.get(context).isLogin
+                    ? const SizedBox()
+                    : CustomTextFormField(
+                        hint: "Confirme Password",
+                        obscureText:
+                            !(LoginRegisterCubit.get(context).isVisiable),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            LoginRegisterCubit.get(context).changeVisiability();
+                          },
+                          icon: Icon(LoginRegisterCubit.get(context).isVisiable
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                        ),
+                      ),
+                const SizedBox(height: 20),
+                CustomButton(
+                  txt: LoginRegisterCubit.get(context).isLogin
+                      ? "LOGIN"
+                      : "REGISTER",
+                ),
                 const SizedBox(height: 8),
                 const RegistarRow()
               ],
