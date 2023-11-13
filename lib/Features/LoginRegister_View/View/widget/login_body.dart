@@ -12,12 +12,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-class LoginBody extends StatelessWidget {
-  const LoginBody({super.key});
+class LoginRegisterBody extends StatelessWidget {
+  const LoginRegisterBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocBuilder<LoginRegisterCubit, LoginRegisterState>(
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.all(10.0),
@@ -48,12 +48,12 @@ class LoginBody extends StatelessWidget {
                 SizedBox(height: MyDevice.getHeigh(context) / 50),
                 CustomTextFormField(
                   hint: "Password",
-                  obscureText: !(LoginCubit.get(context).isVisiable),
+                  obscureText: !(LoginRegisterCubit.get(context).isVisiable),
                   suffixIcon: IconButton(
                     onPressed: () {
-                      LoginCubit.get(context).changeVisiability();
+                      LoginRegisterCubit.get(context).changeVisiability();
                     },
-                    icon: Icon(LoginCubit.get(context).isVisiable
+                    icon: Icon(LoginRegisterCubit.get(context).isVisiable
                         ? Icons.visibility_off
                         : Icons.visibility),
                   ),

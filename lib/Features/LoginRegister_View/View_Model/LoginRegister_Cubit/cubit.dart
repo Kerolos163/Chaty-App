@@ -1,14 +1,14 @@
 import 'package:chatapp/Features/LoginRegister_View/View_Model/LoginRegister_Cubit/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(IniteLoginState());
-  static LoginCubit get(context) => BlocProvider.of(context);
+class LoginRegisterCubit extends Cubit<LoginRegisterState> {
+  LoginRegisterCubit() : super(IniteLoginRegisterState());
+  static LoginRegisterCubit get(context) => BlocProvider.of(context);
   bool isVisiable = false;
   changeVisiability() {
     isVisiable = !isVisiable;
 
-    emit(ChangeVisibilityLoginState());
+    emit(ChangeVisibilityLoginRegisterState());
   }
 
   bool isLogin = true;

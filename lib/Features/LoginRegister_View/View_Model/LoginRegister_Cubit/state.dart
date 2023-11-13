@@ -1,7 +1,7 @@
-abstract class LoginState {}
+abstract class LoginRegisterState {}
 
-class IniteLoginState extends LoginState {}
+class IniteLoginRegisterState extends LoginRegisterState {}
 
-class ChangeVisibilityLoginState extends LoginState {}
+class ChangeVisibilityLoginRegisterState extends LoginRegisterState {}
 
-class ChangeScreenState extends LoginState {}
+class ChangeScreenState extends LoginRegisterState {}

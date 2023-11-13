@@ -1,5 +1,5 @@
 import 'Core/utils/color_manager.dart';
-import 'Features/LoginRegister_View/View/loginRegister_view.dart';
+import 'Features/LoginRegister_View/View/loginRegisterView.dart';
 import 'package:flutter/material.dart';
 
 void main() {
