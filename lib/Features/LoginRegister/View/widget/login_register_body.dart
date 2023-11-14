@@ -83,7 +83,7 @@ class LoginRegisterBody extends StatelessWidget {
                       : "REGISTER",
                 ),
                 const SizedBox(height: 8),
-                const RegistarRow()
+                 RegistarRow(logIn:LoginRegisterCubit.get(context).isLogin ,)
               ],
             ),
           ),

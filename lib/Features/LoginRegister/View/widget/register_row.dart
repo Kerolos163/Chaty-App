@@ -1,27 +1,27 @@
-
 import '../../View_Model/LoginRegister_Cubit/cubit.dart';
 
 import '../../../../Core/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class RegistarRow extends StatelessWidget {
-  const RegistarRow({super.key});
-
+  const RegistarRow({super.key, required this.logIn});
+  final bool logIn;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don't Have Account ? ",
+          logIn ? "Don't Have Account ?" : "Have Account ?",
           style: TextStyle(color: ColorManager.primaryFont),
         ),
         TextButton(
+          
           onPressed: () {
             LoginRegisterCubit.get(context).changeScreen();
           },
           child: Text(
-            "Registar",
+            logIn ? "Registar" : "Log In",
             style: TextStyle(
               color: ColorManager.second,
             ),
