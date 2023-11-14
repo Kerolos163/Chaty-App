@@ -76,6 +76,12 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                   CustomTextFormField(
                     hint: "Email",
                     controller: emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter Email';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(height: MyDevice.getHeigh(context) / 60),
                   CustomTextFormField(
@@ -90,6 +96,12 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                           ? Icons.visibility_off
                           : Icons.visibility),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter Password';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(height: MyDevice.getHeigh(context) / 60),
                   LoginRegisterCubit.get(context).isLogin
@@ -109,14 +121,24 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                                     ? Icons.visibility_off
                                     : Icons.visibility),
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter Password';
+                            } else if (value != passwordController!.text) {
+                              return "don't match password";
+                            }
+                            return null;
+                          },
                         ),
                   const SizedBox(height: 20),
                   CustomButton(
                     onTap: () {
-                      if (LoginRegisterCubit.get(context).isLogin) {
-                      } else {
-                        userRegister(context);
-                      }
+                      if (_formKey.currentState!.validate()) {
+                        if (LoginRegisterCubit.get(context).isLogin) {
+                        } else {
+                          userRegister(context);
+                        }
+                      } else {}
                     },
                     txt: LoginRegisterCubit.get(context).isLogin
                         ? "LOGIN"
