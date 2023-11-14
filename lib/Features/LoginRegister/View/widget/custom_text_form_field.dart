@@ -4,14 +4,25 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../Core/utils/color_manager.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField(
-      {super.key, this.hint, this.obscureText = false, this.suffixIcon});
+  const CustomTextFormField({
+    super.key,
+    this.hint,
+    this.obscureText = false,
+    this.suffixIcon,
+    this.controller,
+    this.validator,
+  });
   final String? hint;
   final bool obscureText;
   final Widget? suffixIcon;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: ColorManager.second,
+      validator: validator,
+      controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
         hintStyle: GoogleFonts.birthstone(fontSize: 28),

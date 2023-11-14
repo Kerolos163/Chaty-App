@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import '../../../../Core/utils/color_manager.dart';
 import 'Widget/splash_body.dart';
-import 'package:flutter/material.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});

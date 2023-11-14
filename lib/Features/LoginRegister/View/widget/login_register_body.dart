@@ -12,83 +12,133 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-class LoginRegisterBody extends StatelessWidget {
+class LoginRegisterBody extends StatefulWidget {
   const LoginRegisterBody({super.key});
+
+  @override
+  State<LoginRegisterBody> createState() => _LoginRegisterBodyState();
+}
+
+class _LoginRegisterBodyState extends State<LoginRegisterBody> {
+  TextEditingController? emailController;
+  TextEditingController? passwordController;
+  TextEditingController? confirmPasswordController;
+  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailController!.dispose();
+    passwordController!.dispose();
+    confirmPasswordController!.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginRegisterCubit, LoginRegisterState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal:12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: MyDevice.getHeigh(context) / 14),
-                Lottie.asset(AssetManager.loginAnimation),
-                Text(
-                  "Chaty",
-                  style: GoogleFonts.birthstone(
-                    fontSize: MyDevice.getWidth(context) / 5,
-                    color: ColorManager.primaryFont,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    LoginRegisterCubit.get(context).isLogin
-                        ? "LOGIN"
-                        : "REGISTER",
-                    style: TextStyle(
-                      fontSize: 30,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: MyDevice.getHeigh(context) / 14),
+                  Lottie.asset(AssetManager.loginAnimation),
+                  Text(
+                    "Chaty",
+                    style: GoogleFonts.birthstone(
+                      fontSize: MyDevice.getWidth(context) / 5,
                       color: ColorManager.primaryFont,
                     ),
                   ),
-                ),
-                SizedBox(height: MyDevice.getHeigh(context) / 60),
-                const CustomTextFormField(hint: "Email"),
-                SizedBox(height: MyDevice.getHeigh(context) / 60),
-                CustomTextFormField(
-                  hint: "Password",
-                  obscureText: !(LoginRegisterCubit.get(context).isVisiable),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      LoginRegisterCubit.get(context).changeVisiability();
-                    },
-                    icon: Icon(LoginRegisterCubit.get(context).isVisiable
-                        ? Icons.visibility_off
-                        : Icons.visibility),
-                  ),
-                ),
-                SizedBox(height: MyDevice.getHeigh(context) / 60),
-                LoginRegisterCubit.get(context).isLogin
-                    ? const SizedBox()
-                    : CustomTextFormField(
-                        hint: "Confirme Password",
-                        obscureText:
-                            !(LoginRegisterCubit.get(context).isVisiable),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            LoginRegisterCubit.get(context).changeVisiability();
-                          },
-                          icon: Icon(LoginRegisterCubit.get(context).isVisiable
-                              ? Icons.visibility_off
-                              : Icons.visibility),
-                        ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      LoginRegisterCubit.get(context).isLogin
+                          ? "LOGIN"
+                          : "REGISTER",
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: ColorManager.primaryFont,
                       ),
-                const SizedBox(height: 20),
-                CustomButton(
-                  txt: LoginRegisterCubit.get(context).isLogin
-                      ? "LOGIN"
-                      : "REGISTER",
-                ),
-                const SizedBox(height: 8),
-                 RegistarRow(logIn:LoginRegisterCubit.get(context).isLogin ,)
-              ],
+                    ),
+                  ),
+                  SizedBox(height: MyDevice.getHeigh(context) / 60),
+                  CustomTextFormField(
+                    hint: "Email",
+                    controller: emailController,
+                  ),
+                  SizedBox(height: MyDevice.getHeigh(context) / 60),
+                  CustomTextFormField(
+                    controller: passwordController,
+                    hint: "Password",
+                    obscureText: !(LoginRegisterCubit.get(context).isVisiable),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        LoginRegisterCubit.get(context).changeVisiability();
+                      },
+                      icon: Icon(LoginRegisterCubit.get(context).isVisiable
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                    ),
+                  ),
+                  SizedBox(height: MyDevice.getHeigh(context) / 60),
+                  LoginRegisterCubit.get(context).isLogin
+                      ? const SizedBox()
+                      : CustomTextFormField(
+                          controller: confirmPasswordController,
+                          hint: "Confirme Password",
+                          obscureText:
+                              !(LoginRegisterCubit.get(context).isVisiable),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              LoginRegisterCubit.get(context)
+                                  .changeVisiability();
+                            },
+                            icon: Icon(
+                                LoginRegisterCubit.get(context).isVisiable
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                          ),
+                        ),
+                  const SizedBox(height: 20),
+                  CustomButton(
+                    onTap: () {
+                      if (LoginRegisterCubit.get(context).isLogin) {
+                      } else {
+                        userRegister(context);
+                      }
+                    },
+                    txt: LoginRegisterCubit.get(context).isLogin
+                        ? "LOGIN"
+                        : "REGISTER",
+                  ),
+                  const SizedBox(height: 8),
+                  RegistarRow(
+                    logIn: LoginRegisterCubit.get(context).isLogin,
+                  )
+                ],
+              ),
             ),
           ),
         );
       },
+    );
+  }
+
+  void userRegister(BuildContext context) {
+    LoginRegisterCubit.get(context).createAccount(
+      userEmail: emailController!.text.trim(),
+      userPassword: passwordController!.text,
     );
   }
 }
