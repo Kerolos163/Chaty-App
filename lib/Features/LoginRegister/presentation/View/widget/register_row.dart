@@ -1,6 +1,6 @@
 import '../../View_Model/LoginRegister_Cubit/cubit.dart';
 
-import '../../../../Core/utils/color_manager.dart';
+import '../../../../../Core/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class RegistarRow extends StatelessWidget {

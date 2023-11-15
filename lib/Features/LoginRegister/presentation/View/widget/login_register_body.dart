@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../Core/constant.dart';
-import '../../../../Core/utils/asset_manager.dart';
-import '../../../../Core/utils/color_manager.dart';
-import '../../../../Core/widget/custom_button.dart';
+import '../../../../../Core/constant.dart';
+import '../../../../../Core/utils/asset_manager.dart';
+import '../../../../../Core/utils/color_manager.dart';
+import '../../../../../Core/widget/custom_button.dart';
 import '../../View_Model/LoginRegister_Cubit/cubit.dart';
 import '../../View_Model/LoginRegister_Cubit/state.dart';
 import 'custom_text_form_field.dart';
