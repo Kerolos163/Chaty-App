@@ -15,3 +15,12 @@ class CreateAccountFailureState extends LoginRegisterState {
 
   CreateAccountFailureState({required this.error});
 }
+
+class LoginLoadingState extends LoginRegisterState {}
+
+class LoginSuccessState extends LoginRegisterState {}
+class LoginFailureState extends LoginRegisterState {
+  final String error;
+
+  LoginFailureState({required this.error});
+}

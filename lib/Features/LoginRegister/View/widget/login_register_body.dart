@@ -1,16 +1,16 @@
-import '../../View_Model/LoginRegister_Cubit/cubit.dart';
-import '../../View_Model/LoginRegister_Cubit/state.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../Core/constant.dart';
 import '../../../../Core/utils/asset_manager.dart';
 import '../../../../Core/utils/color_manager.dart';
 import '../../../../Core/widget/custom_button.dart';
+import '../../View_Model/LoginRegister_Cubit/cubit.dart';
+import '../../View_Model/LoginRegister_Cubit/state.dart';
 import 'custom_text_form_field.dart';
 import 'register_row.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 
 class LoginRegisterBody extends StatefulWidget {
   const LoginRegisterBody({super.key});
@@ -32,7 +32,14 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginRegisterCubit, LoginRegisterState>(
+    return BlocConsumer<LoginRegisterCubit, LoginRegisterState>(
+      listener: (context, state) {
+        if (state is CreateAccountFailureState) {
+          showSnack(context, state.error);
+        } else if (state is LoginFailureState) {
+          showSnack(context, state.error);
+        }
+      },
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -109,9 +116,10 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                                   .changeVisiability();
                             },
                             icon: Icon(
-                                LoginRegisterCubit.get(context).isVisiable
-                                    ? Icons.visibility_off
-                                    : Icons.visibility),
+                              LoginRegisterCubit.get(context).isVisiable
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -126,19 +134,23 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                           },
                         ),
                   const SizedBox(height: 20),
-                  CustomButton(
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        if (LoginRegisterCubit.get(context).isLogin) {
-                        } else {
-                          userRegister(context);
-                        }
-                      } else {}
-                    },
-                    txt: LoginRegisterCubit.get(context).isLogin
-                        ? "LOGIN"
-                        : "REGISTER",
-                  ),
+                  (state is CreateAccountLoadingState ||
+                          state is LoginLoadingState)
+                      ? CircularProgressIndicator(color: ColorManager.second)
+                      : CustomButton(
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              if (LoginRegisterCubit.get(context).isLogin) {
+                                userLogin(context);
+                              } else {
+                                userRegister(context);
+                              }
+                            }
+                          },
+                          txt: LoginRegisterCubit.get(context).isLogin
+                              ? "LOGIN"
+                              : "REGISTER",
+                        ),
                   const SizedBox(height: 8),
                   RegistarRow(
                     logIn: LoginRegisterCubit.get(context).isLogin,
@@ -149,6 +161,13 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
           ),
         );
       },
+    );
+  }
+
+  void userLogin(BuildContext context) {
+    LoginRegisterCubit.get(context).logInAccount(
+      userEmail: LoginRegisterCubit.get(context).emailController!.text.trim(),
+      userPassword: LoginRegisterCubit.get(context).passwordController!.text,
     );
   }
 

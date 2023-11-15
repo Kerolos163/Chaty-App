@@ -37,11 +37,25 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
         .then(
       (value) {
         log(value.user!.uid);
+        changeScreen();
         emit(CreateAccountSuccessState());
       },
     ).catchError((error) {
       log(error.toString());
       emit(CreateAccountFailureState(error: error.toString()));
+    });
+  }
+
+  logInAccount({required String userEmail, required String userPassword}) {
+    emit(LoginLoadingState());
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: userEmail, password: userPassword)
+        .then(
+      (value) {
+        emit(LoginSuccessState());
+      },
+    ).catchError((error) {
+      emit(LoginFailureState(error: error.toString()));
     });
   }
 }

@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../../../Core/constant.dart';
 import '../../../../../Core/transition/page_slide_transition.dart';
 import '../../../../../Core/utils/color_manager.dart';
 import '../../../../LoginRegister/View/login_register_view.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SplashBody extends StatefulWidget {
   const SplashBody({super.key});
