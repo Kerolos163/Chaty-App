@@ -1,5 +1,6 @@
-import 'utils/color_manager.dart';
 import 'package:flutter/material.dart';
+
+import 'utils/color_manager.dart';
 
 abstract class MyDevice {
   static getWidth(context) => MediaQuery.of(context).size.width;

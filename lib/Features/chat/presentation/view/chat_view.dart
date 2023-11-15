@@ -1,6 +1,7 @@
-import 'package:chatapp/Core/utils/color_manager.dart';
-import 'package:chatapp/Features/chat/presentation/view/widget/chat_body.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../Core/utils/color_manager.dart';
+import 'widget/chat_body.dart';
 
 class ChatView extends StatelessWidget {
   const ChatView({super.key});

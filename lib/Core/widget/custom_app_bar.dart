@@ -1,6 +1,7 @@
-import 'package:chatapp/Core/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../utils/color_manager.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key, required this.txt});
