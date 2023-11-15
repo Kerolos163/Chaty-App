@@ -20,23 +20,13 @@ class LoginRegisterBody extends StatefulWidget {
 }
 
 class _LoginRegisterBodyState extends State<LoginRegisterBody> {
-  TextEditingController? emailController;
-  TextEditingController? passwordController;
-  TextEditingController? confirmPasswordController;
   final _formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    confirmPasswordController = TextEditingController();
-    super.initState();
-  }
 
   @override
   void dispose() {
-    emailController!.dispose();
-    passwordController!.dispose();
-    confirmPasswordController!.dispose();
+    LoginRegisterCubit.get(context).emailController!.dispose();
+    LoginRegisterCubit.get(context).passwordController!.dispose();
+    LoginRegisterCubit.get(context).confirmPasswordController!.dispose();
     super.dispose();
   }
 
@@ -75,7 +65,7 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                   SizedBox(height: MyDevice.getHeigh(context) / 60),
                   CustomTextFormField(
                     hint: "Email",
-                    controller: emailController,
+                    controller: LoginRegisterCubit.get(context).emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter Email';
@@ -85,7 +75,8 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                   ),
                   SizedBox(height: MyDevice.getHeigh(context) / 60),
                   CustomTextFormField(
-                    controller: passwordController,
+                    controller:
+                        LoginRegisterCubit.get(context).passwordController,
                     hint: "Password",
                     obscureText: !(LoginRegisterCubit.get(context).isVisiable),
                     suffixIcon: IconButton(
@@ -107,7 +98,8 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                   LoginRegisterCubit.get(context).isLogin
                       ? const SizedBox()
                       : CustomTextFormField(
-                          controller: confirmPasswordController,
+                          controller: LoginRegisterCubit.get(context)
+                              .confirmPasswordController,
                           hint: "Confirme Password",
                           obscureText:
                               !(LoginRegisterCubit.get(context).isVisiable),
@@ -124,7 +116,10 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter Password';
-                            } else if (value != passwordController!.text) {
+                            } else if (value !=
+                                LoginRegisterCubit.get(context)
+                                    .passwordController!
+                                    .text) {
                               return "don't match password";
                             }
                             return null;
@@ -159,8 +154,8 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
 
   void userRegister(BuildContext context) {
     LoginRegisterCubit.get(context).createAccount(
-      userEmail: emailController!.text.trim(),
-      userPassword: passwordController!.text,
+      userEmail: LoginRegisterCubit.get(context).emailController!.text.trim(),
+      userPassword: LoginRegisterCubit.get(context).passwordController!.text,
     );
   }
 }

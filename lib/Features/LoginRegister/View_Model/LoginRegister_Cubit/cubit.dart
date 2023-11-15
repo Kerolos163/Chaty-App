@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'state.dart';
@@ -8,6 +9,10 @@ import 'state.dart';
 class LoginRegisterCubit extends Cubit<LoginRegisterState> {
   LoginRegisterCubit() : super(IniteLoginRegisterState());
   static LoginRegisterCubit get(context) => BlocProvider.of(context);
+  TextEditingController? emailController = TextEditingController();
+  TextEditingController? passwordController = TextEditingController();
+  TextEditingController? confirmPasswordController = TextEditingController();
+
   bool isVisiable = false;
   changeVisiability() {
     isVisiable = !isVisiable;
@@ -18,11 +23,13 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
   bool isLogin = true;
   changeScreen() {
     isLogin = !isLogin;
+    emailController!.text = "";
+    passwordController!.text = "";
+    confirmPasswordController!.text = "";
     emit(ChangeScreenState());
   }
 
   createAccount({required String userEmail, required String userPassword}) {
-
     emit(CreateAccountLoadingState());
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(
