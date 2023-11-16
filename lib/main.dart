@@ -1,5 +1,3 @@
-import 'package:chatapp/Features/chat/presentation/view/chat_view.dart';
-
 import 'Features/Splash/presentation/view/splash_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: const SplashView(),
-      home: const ChatView(),
+      home: const SplashView(),
     );
   }
 }
