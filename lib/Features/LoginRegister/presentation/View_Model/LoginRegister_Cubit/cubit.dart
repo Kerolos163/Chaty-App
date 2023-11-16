@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:chatapp/Core/models/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +31,23 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
     emit(ChangeScreenState());
   }
 
+  createUser({required String email, required String uID, String? image}) {
+    emit(CreateUserLoadingState());
+
+    UserModel model = UserModel(email: email, uID: uID, image: image);
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(uID)
+        .set(model.toMap())
+        .then((value) {
+      log("Create User");
+      emit(CreateUserSuccessState());
+    }).catchError((error) {
+      log(error.toString());
+      emit(CreateUserFailureState(error: error.toString()));
+    });
+  }
+
   createAccount({required String userEmail, required String userPassword}) {
     emit(CreateAccountLoadingState());
     FirebaseAuth.instance
@@ -37,6 +56,7 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
         .then(
       (value) {
         log(value.user!.uid);
+        createUser(email: userEmail, uID: value.user!.uid);
         changeScreen();
         emit(CreateAccountSuccessState());
       },

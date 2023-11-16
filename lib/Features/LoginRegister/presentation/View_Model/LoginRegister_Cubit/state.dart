@@ -16,9 +16,20 @@ class CreateAccountFailureState extends LoginRegisterState {
   CreateAccountFailureState({required this.error});
 }
 
+class CreateUserLoadingState extends LoginRegisterState {}
+
+class CreateUserSuccessState extends LoginRegisterState {}
+
+class CreateUserFailureState extends LoginRegisterState {
+  final String error;
+
+  CreateUserFailureState({required this.error});
+}
+
 class LoginLoadingState extends LoginRegisterState {}
 
 class LoginSuccessState extends LoginRegisterState {}
+
 class LoginFailureState extends LoginRegisterState {
   final String error;
 
