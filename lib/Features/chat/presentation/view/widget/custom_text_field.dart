@@ -1,5 +1,6 @@
-import 'package:chatapp/Core/utils/color_manager.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../Core/utils/color_manager.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({super.key, this.onPressed});

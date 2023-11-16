@@ -1,8 +1,8 @@
-import 'package:chatapp/Features/chat/presentation/view/widget/custom_text_field.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../../Core/constant.dart';
 import '../../../../../Core/utils/color_manager.dart';
-import 'package:flutter/material.dart';
+import 'custom_text_field.dart';
 
 class ChatInfoBody extends StatelessWidget {
   const ChatInfoBody({super.key});

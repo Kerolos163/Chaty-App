@@ -1,5 +1,5 @@
-import 'package:chatapp/Core/transition/page_slide_transition.dart';
-import 'package:chatapp/Features/Layout/presentation/view/layout_view.dart';
+import '../../../../../Core/transition/page_slide_transition.dart';
+import '../../../../Layout/presentation/view/layout_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
