@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:chatapp/Core/constant.dart';
 import 'package:chatapp/Core/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,7 +56,8 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
             email: userEmail, password: userPassword)
         .then(
       (value) {
-        log(value.user!.uid);
+        myID = value.user!.uid;
+        log(myID ?? "Problem In Token");
         createUser(email: userEmail, uID: value.user!.uid);
         changeScreen();
         emit(CreateAccountSuccessState());
@@ -72,6 +74,8 @@ class LoginRegisterCubit extends Cubit<LoginRegisterState> {
         .signInWithEmailAndPassword(email: userEmail, password: userPassword)
         .then(
       (value) {
+        myID = value.user!.uid;
+        log(myID ?? "Problem In Token");
         emit(LoginSuccessState());
       },
     ).catchError((error) {

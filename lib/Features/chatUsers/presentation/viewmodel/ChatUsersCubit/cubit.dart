@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:chatapp/Core/constant.dart';
 import 'package:chatapp/Core/models/user_model.dart';
 import 'package:chatapp/Features/chatUsers/presentation/viewmodel/ChatUsersCubit/state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,9 +14,10 @@ class ChatUsersCubit extends Cubit<ChatUsers> {
     emit(GetUsersLoadingState());
     FirebaseFirestore.instance.collection("Users").get().then((value) {
       for (var user in value.docs) {
-        users.add(UserModel.fromJson(user.data()));
+        if (myID != user.id) {
+          users.add(UserModel.fromJson(user.data()));
+        }
       }
-      log(users[0].toString());
       emit(GetUsersSuccessState());
     }).catchError((error) {
       log(error.toString());
