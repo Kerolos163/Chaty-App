@@ -23,17 +23,18 @@ class LoginRegisterBody extends StatefulWidget {
 
 class _LoginRegisterBodyState extends State<LoginRegisterBody> {
   final _formKey = GlobalKey<FormState>();
-
+  late LoginRegisterCubit myCubit;
   @override
   void dispose() {
-    LoginRegisterCubit.get(context).emailController!.dispose();
-    LoginRegisterCubit.get(context).passwordController!.dispose();
-    LoginRegisterCubit.get(context).confirmPasswordController!.dispose();
+    myCubit.emailController!.dispose();
+    myCubit.passwordController!.dispose();
+    myCubit.confirmPasswordController!.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    myCubit = LoginRegisterCubit.get(context);
     return BlocConsumer<LoginRegisterCubit, LoginRegisterState>(
       listener: (context, state) {
         if (state is CreateAccountFailureState) {
@@ -65,9 +66,7 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      LoginRegisterCubit.get(context).isLogin
-                          ? "LOGIN"
-                          : "REGISTER",
+                      myCubit.isLogin ? "LOGIN" : "REGISTER",
                       style: TextStyle(
                         fontSize: 30,
                         color: ColorManager.primaryFont,
@@ -77,7 +76,7 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                   SizedBox(height: MyDevice.getHeigh(context) / 60),
                   CustomTextFormField(
                     hint: "Email",
-                    controller: LoginRegisterCubit.get(context).emailController,
+                    controller: myCubit.emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter Email';
@@ -87,15 +86,14 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                   ),
                   SizedBox(height: MyDevice.getHeigh(context) / 60),
                   CustomTextFormField(
-                    controller:
-                        LoginRegisterCubit.get(context).passwordController,
+                    controller: myCubit.passwordController,
                     hint: "Password",
-                    obscureText: !(LoginRegisterCubit.get(context).isVisiable),
+                    obscureText: !(myCubit.isVisiable),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        LoginRegisterCubit.get(context).changeVisiability();
+                        myCubit.changeVisiability();
                       },
-                      icon: Icon(LoginRegisterCubit.get(context).isVisiable
+                      icon: Icon(myCubit.isVisiable
                           ? Icons.visibility_off
                           : Icons.visibility),
                     ),
@@ -107,21 +105,18 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                     },
                   ),
                   SizedBox(height: MyDevice.getHeigh(context) / 60),
-                  LoginRegisterCubit.get(context).isLogin
+                  myCubit.isLogin
                       ? const SizedBox()
                       : CustomTextFormField(
-                          controller: LoginRegisterCubit.get(context)
-                              .confirmPasswordController,
+                          controller: myCubit.confirmPasswordController,
                           hint: "Confirme Password",
-                          obscureText:
-                              !(LoginRegisterCubit.get(context).isVisiable),
+                          obscureText: !(myCubit.isVisiable),
                           suffixIcon: IconButton(
                             onPressed: () {
-                              LoginRegisterCubit.get(context)
-                                  .changeVisiability();
+                              myCubit.changeVisiability();
                             },
                             icon: Icon(
-                              LoginRegisterCubit.get(context).isVisiable
+                              myCubit.isVisiable
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                             ),
@@ -130,9 +125,7 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                             if (value == null || value.isEmpty) {
                               return 'Please enter Password';
                             } else if (value !=
-                                LoginRegisterCubit.get(context)
-                                    .passwordController!
-                                    .text) {
+                                myCubit.passwordController!.text) {
                               return "don't match password";
                             }
                             return null;
@@ -145,20 +138,18 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
                       : CustomButton(
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
-                              if (LoginRegisterCubit.get(context).isLogin) {
+                              if (myCubit.isLogin) {
                                 userLogin(context);
                               } else {
                                 userRegister(context);
                               }
                             }
                           },
-                          txt: LoginRegisterCubit.get(context).isLogin
-                              ? "LOGIN"
-                              : "REGISTER",
+                          txt: myCubit.isLogin ? "LOGIN" : "REGISTER",
                         ),
                   const SizedBox(height: 8),
                   RegistarRow(
-                    logIn: LoginRegisterCubit.get(context).isLogin,
+                    logIn: myCubit.isLogin,
                   )
                 ],
               ),
@@ -170,16 +161,16 @@ class _LoginRegisterBodyState extends State<LoginRegisterBody> {
   }
 
   void userLogin(BuildContext context) {
-    LoginRegisterCubit.get(context).logInAccount(
-      userEmail: LoginRegisterCubit.get(context).emailController!.text.trim(),
-      userPassword: LoginRegisterCubit.get(context).passwordController!.text,
+    myCubit.logInAccount(
+      userEmail: myCubit.emailController!.text.trim(),
+      userPassword: myCubit.passwordController!.text,
     );
   }
 
   void userRegister(BuildContext context) {
-    LoginRegisterCubit.get(context).createAccount(
-      userEmail: LoginRegisterCubit.get(context).emailController!.text.trim(),
-      userPassword: LoginRegisterCubit.get(context).passwordController!.text,
+    myCubit.createAccount(
+      userEmail: myCubit.emailController!.text.trim(),
+      userPassword: myCubit.passwordController!.text,
     );
   }
 }
