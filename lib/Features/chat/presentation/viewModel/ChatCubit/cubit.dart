@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chatapp/Core/constant.dart';
 import 'package:chatapp/Core/models/messagemodel.dart';
 import 'package:chatapp/Features/chat/presentation/viewModel/ChatCubit/state.dart';
@@ -44,6 +46,26 @@ class ChatCubit extends Cubit<ChatState> {
       emit(SendMessageSuccessState());
     }).catchError((error) {
       emit(SendMessageFailureState(error: error.toString()));
+    });
+  }
+
+  List<MessageModel> messages = [];
+  void getMessage({required String receiverId}) {
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(myID)
+        .collection("Chats")
+        .doc(receiverId)
+        .collection("Messages")
+        .orderBy('datetime')
+        .snapshots()
+        .listen((event) {
+      messages = [];
+      for (var element in event.docs) {
+        messages.add(MessageModel.fromJson(element.data()));
+        log(messages.toString());
+      }
+      emit(GetMessageSuccessState());
     });
   }
 }

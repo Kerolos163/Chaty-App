@@ -12,7 +12,7 @@ class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChatCubit(),
+      create: (context) => ChatCubit()..getMessage(receiverId: receiverModel.uID),
       child: Scaffold(
         backgroundColor: ColorManager.second,
         body: SafeArea(

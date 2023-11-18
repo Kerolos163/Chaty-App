@@ -7,12 +7,28 @@ import '../../../../../Core/constant.dart';
 import '../../../../../Core/utils/color_manager.dart';
 import 'custom_text_field.dart';
 
-class ChatInfoBody extends StatelessWidget {
-  const ChatInfoBody({
-    super.key,
-    required this.receiverID,
-  });
+class ChatInfoBody extends StatefulWidget {
+  const ChatInfoBody({super.key, required this.receiverID});
   final String receiverID;
+
+  @override
+  State<ChatInfoBody> createState() => _ChatInfoBodyState();
+}
+
+class _ChatInfoBodyState extends State<ChatInfoBody> {
+  late TextEditingController? _controller;
+  @override
+  void initState() {
+    _controller = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void deactivate() {
+    _controller!.dispose();
+    super.deactivate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ChatCubit, ChatState>(
@@ -45,12 +61,16 @@ class ChatInfoBody extends StatelessWidget {
                   ),
                 ),
                 CustomTextField(
+                  controller: _controller,
                   onPressed: () {
-                    ChatCubit.get(context).sendMessage(
-                      receiverId: receiverID,
-                      dateTime: DateTime.now().toString(),
-                      text: "Wesso",
-                    );
+                    if (_controller!.text.isNotEmpty && _controller != null) {
+                      ChatCubit.get(context).sendMessage(
+                        receiverId: widget.receiverID,
+                        dateTime: DateTime.now().toString(),
+                        text: _controller!.text,
+                      );
+                      _controller!.clear();
+                    }
                   },
                 ),
               ],

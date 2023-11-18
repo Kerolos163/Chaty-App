@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../../../Core/utils/color_manager.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, this.onPressed});
+  const CustomTextField({super.key, this.onPressed, this.controller});
   final void Function()? onPressed;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: TextField(
+        controller: controller,
         cursorColor: ColorManager.primaryFont,
         decoration: InputDecoration(
           suffixIcon: IconButton(
