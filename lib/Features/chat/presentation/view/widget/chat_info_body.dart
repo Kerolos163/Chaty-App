@@ -1,3 +1,4 @@
+import 'package:chatapp/Core/models/messagemodel.dart';
 import 'package:chatapp/Features/chat/presentation/viewModel/ChatCubit/cubit.dart';
 import 'package:chatapp/Features/chat/presentation/viewModel/ChatCubit/state.dart';
 import 'package:flutter/material.dart';
@@ -53,11 +54,15 @@ class _ChatInfoBodyState extends State<ChatInfoBody> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: reciverMessage(context,
-                            message: "Wesso Wesso Wesso Wesso Wesso Wesso"),
+                        child: myID ==
+                                ChatCubit.get(context).messages[index].senderid
+                            ? senderMessage(context,
+                                model: ChatCubit.get(context).messages[index])
+                            : reciverMessage(context,
+                                model: ChatCubit.get(context).messages[index]),
                       );
                     },
-                    itemCount: 5,
+                    itemCount: ChatCubit.get(context).messages.length,
                   ),
                 ),
                 CustomTextField(
@@ -81,7 +86,7 @@ class _ChatInfoBodyState extends State<ChatInfoBody> {
     );
   }
 
-  Align reciverMessage(BuildContext context, {required String message}) {
+  Align reciverMessage(BuildContext context, {required MessageModel model}) {
     return Align(
       alignment: Alignment.bottomLeft,
       child: Container(
@@ -97,14 +102,14 @@ class _ChatInfoBodyState extends State<ChatInfoBody> {
           ),
         ),
         child: Text(
-          message,
+          model.text!,
           style: TextStyle(color: ColorManager.primary, fontSize: 16),
         ),
       ),
     );
   }
 
-  Align senderMessage(BuildContext context, {required String message}) {
+  Align senderMessage(BuildContext context, {required MessageModel model}) {
     return Align(
       alignment: Alignment.bottomRight,
       child: Container(
@@ -119,9 +124,15 @@ class _ChatInfoBodyState extends State<ChatInfoBody> {
             bottomLeft: Radius.circular(24),
           ),
         ),
-        child: Text(
-          message,
-          style: TextStyle(color: ColorManager.primaryFont, fontSize: 16),
+        child: Column(
+          children: [
+            Text(
+              model.text!,
+              style: TextStyle(color: ColorManager.primaryFont, fontSize: 16),
+            ),
+            Text(model.datetime!,
+                style: TextStyle(color: ColorManager.primaryFont, fontSize: 8))
+          ],
         ),
       ),
     );
