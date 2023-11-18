@@ -1,4 +1,4 @@
-import 'package:chatapp/Core/constant.dart';
+
 import 'package:chatapp/Core/transition/page_slide_transition.dart';
 import 'package:chatapp/Features/chat/presentation/view/chat_view.dart';
 import 'package:chatapp/Features/chatUsers/presentation/view/widget/chat_item.dart';
@@ -25,9 +25,7 @@ class UsersChatsView extends StatelessWidget {
                 Navigator.of(context).push(
                   PageSlide(
                     ChatView(
-                      userName: getName(
-                        name: ChatUsersCubit.get(context).users[index].email,
-                      ),
+                      receiverModel: ChatUsersCubit.get(context).users[index],
                     ),
                   ),
                 );

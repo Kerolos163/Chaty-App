@@ -1,17 +1,23 @@
+import 'package:chatapp/Core/models/user_model.dart';
+import 'package:chatapp/Features/chat/presentation/viewModel/ChatCubit/cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../Core/utils/color_manager.dart';
 import 'widget/chat_body.dart';
 
 class ChatView extends StatelessWidget {
-  const ChatView({super.key, required this.userName});
-  final String userName;
+  const ChatView({super.key, required this.receiverModel});
+  final UserModel receiverModel;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorManager.second,
-      body: SafeArea(
-        child: ChatBody(userName: userName),
+    return BlocProvider(
+      create: (context) => ChatCubit(),
+      child: Scaffold(
+        backgroundColor: ColorManager.second,
+        body: SafeArea(
+          child: ChatBody(receiverModel: receiverModel),
+        ),
       ),
     );
   }

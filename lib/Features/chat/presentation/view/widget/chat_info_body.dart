@@ -1,45 +1,63 @@
+import 'package:chatapp/Features/chat/presentation/viewModel/ChatCubit/cubit.dart';
+import 'package:chatapp/Features/chat/presentation/viewModel/ChatCubit/state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../Core/constant.dart';
 import '../../../../../Core/utils/color_manager.dart';
 import 'custom_text_field.dart';
 
 class ChatInfoBody extends StatelessWidget {
-  const ChatInfoBody({super.key});
-
+  const ChatInfoBody({
+    super.key,
+    required this.receiverID,
+  });
+  final String receiverID;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 9,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.only(top: 16, left: 10, right: 10),
-        decoration: BoxDecoration(
-          color: ColorManager.primary,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(28),
-            topRight: Radius.circular(28),
-          ),
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: reciverMessage(context,
-                        message: "Wesso Wesso Wesso Wesso Wesso Wesso"),
-                  );
-                },
-                itemCount: 5,
+    return BlocBuilder<ChatCubit, ChatState>(
+      builder: (context, state) {
+        return Expanded(
+          flex: 9,
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(top: 16, left: 10, right: 10),
+            decoration: BoxDecoration(
+              color: ColorManager.primary,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(28),
+                topRight: Radius.circular(28),
               ),
             ),
-            const CustomTextField(),
-          ],
-        ),
-      ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: reciverMessage(context,
+                            message: "Wesso Wesso Wesso Wesso Wesso Wesso"),
+                      );
+                    },
+                    itemCount: 5,
+                  ),
+                ),
+                CustomTextField(
+                  onPressed: () {
+                    ChatCubit.get(context).sendMessage(
+                      receiverId: receiverID,
+                      dateTime: DateTime.now().toString(),
+                      text: "Wesso",
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
