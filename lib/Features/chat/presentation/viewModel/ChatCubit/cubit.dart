@@ -57,7 +57,7 @@ class ChatCubit extends Cubit<ChatState> {
         .collection("Chats")
         .doc(receiverId)
         .collection("Messages")
-        .orderBy('datetime')
+        .orderBy('datetime',descending: true)
         .snapshots()
         .listen((event) {
       messages = [];

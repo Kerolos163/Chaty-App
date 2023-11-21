@@ -18,9 +18,11 @@ class ChatInfoBody extends StatefulWidget {
 
 class _ChatInfoBodyState extends State<ChatInfoBody> {
   late TextEditingController? _controller;
+  late ScrollController _scrollcontroller;
   @override
   void initState() {
     _controller = TextEditingController();
+    _scrollcontroller = ScrollController();
     super.initState();
   }
 
@@ -50,6 +52,8 @@ class _ChatInfoBodyState extends State<ChatInfoBody> {
               children: [
                 Expanded(
                   child: ListView.builder(
+                    reverse: true,
+                    controller: _scrollcontroller,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Padding(
@@ -75,6 +79,7 @@ class _ChatInfoBodyState extends State<ChatInfoBody> {
                         text: _controller!.text,
                       );
                       _controller!.clear();
+                      scrollDown();
                     }
                   },
                 ),
@@ -84,6 +89,16 @@ class _ChatInfoBodyState extends State<ChatInfoBody> {
         );
       },
     );
+  }
+
+  void scrollDown() {
+    Future.delayed(const Duration(milliseconds: 300)).then((value) {
+      _scrollcontroller.animateTo(
+        0,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.fastOutSlowIn,
+      );
+    });
   }
 
   Align reciverMessage(BuildContext context, {required MessageModel model}) {
