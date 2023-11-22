@@ -1,10 +1,12 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:chatapp/Core/constant.dart';
 import 'package:chatapp/Core/models/messagemodel.dart';
 import 'package:chatapp/Features/chat/presentation/viewModel/ChatCubit/state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   ChatCubit() : super(IniteState());
@@ -57,7 +59,7 @@ class ChatCubit extends Cubit<ChatState> {
         .collection("Chats")
         .doc(receiverId)
         .collection("Messages")
-        .orderBy('datetime',descending: true)
+        .orderBy('datetime', descending: true)
         .snapshots()
         .listen((event) {
       messages = [];
@@ -67,5 +69,26 @@ class ChatCubit extends Cubit<ChatState> {
       }
       emit(GetMessageSuccessState());
     });
+  }
+
+  File? galleryImage;
+  final ImagePicker _picker = ImagePicker();
+  Future<void> getGalleryImage({required ImageSource source }) async {
+    final XFile? image = await _picker.pickImage(source: source);
+    if (image != null) {
+      galleryImage = File(image.path);
+      print('Get SendImage Done <----------------------------->');
+      print(galleryImage);
+
+      emit(GetSendImageSuccessState());
+    } else {
+      print("No Image Selected !");
+      emit(GetSendImageErrorState());
+    }
+  }
+
+  removeImage() {
+    galleryImage = null;
+    emit(RemoveMessageSuccessState());
   }
 }

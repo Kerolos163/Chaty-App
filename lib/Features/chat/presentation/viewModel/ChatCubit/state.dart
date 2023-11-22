@@ -11,4 +11,11 @@ class SendMessageFailureState extends ChatState {
 
   SendMessageFailureState({required this.error});
 }
+
 class GetMessageSuccessState extends ChatState {}
+
+class GetSendImageSuccessState extends ChatState {}
+
+class GetSendImageErrorState extends ChatState {}
+
+class RemoveMessageSuccessState extends ChatState {}

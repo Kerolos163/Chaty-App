@@ -1,8 +1,10 @@
 import 'package:chatapp/Core/models/messagemodel.dart';
+import 'package:chatapp/Features/chat/presentation/view/widget/selected_chat_image.dart';
 import 'package:chatapp/Features/chat/presentation/viewModel/ChatCubit/cubit.dart';
 import 'package:chatapp/Features/chat/presentation/viewModel/ChatCubit/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../../Core/constant.dart';
 import '../../../../../Core/utils/color_manager.dart';
@@ -69,7 +71,13 @@ class _ChatInfoBodyState extends State<ChatInfoBody> {
                     itemCount: ChatCubit.get(context).messages.length,
                   ),
                 ),
+                if (ChatCubit.get(context).galleryImage != null)
+                  const SelectedChatImage(),
                 CustomTextField(
+                  onPressed2: () {
+                    ChatCubit.get(context)
+                        .getGalleryImage(source: ImageSource.gallery);
+                  },
                   controller: _controller,
                   onPressed: () {
                     if (_controller!.text.isNotEmpty && _controller != null) {
